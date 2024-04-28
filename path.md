@@ -13,6 +13,10 @@
    1. Optional: Make the face upscaling thing yourself
 4. Color correction / restoration of images 
 5. Image Upscaling
+6. Finishing it all up:
+   1. Deploy SD and masking from AynAssg for filling in the masked parts of the images
+   2. Try deploying this on Modal
+   3. Try to make a thing where it can change the BG of the image
 
 
 
