@@ -8,7 +8,8 @@
    4. Run a UNet on it
       1. Check how well it works on images
 2. BW to RGB conversion
-   1. Check the older repo for how colorization was done, apply it here, ezpz
+   1. Denoise the image
+   2. Check the older repo for how colorization was done, apply it here, ezpz
 3. use GFP GAN like in AYNASSG to upscale faces and background of image
    1. Optional: Make the face upscaling thing yourself
 4. Color correction / restoration of images 
