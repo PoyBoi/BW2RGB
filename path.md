@@ -1,7 +1,37 @@
-What are deliverables:
+# What are deliverables:
 
 1. Remove scratches from images
+   1. Take images from the model and get their masks, see if they are any good and then fine tune them
+   2. Fine tune those masks via photoshop
+   3. Use data augmentation to get more pictures from the same dataset
+      1. Turn it into a TIFF image if needed (IDTS)
+   4. Run a UNet on it
+      1. Check how well it works on images
 2. BW to RGB conversion
+   1. Check the older repo for how colorization was done, apply it here, ezpz
 3. use GFP GAN like in AYNASSG to upscale faces and background of image
    1. Optional: Make the face upscaling thing yourself
 4. Color correction / restoration of images 
+5. Image Upscaling
+
+
+
+# Misc:
+
+1. Links:
+   1. [Link to the MS OpenSource repo](https://github.com/microsoft/Bringing-Old-Photos-Back-to-Life)
+   2. [Link to the vercel app deployment](https://restoring-images.vercel.app/)
+   3. [Video for small dataset semantic segmentation and UNet](https://www.youtube.com/watch?v=-XeKG_T6tdc)
+
+2. Contributions to the open-source project:
+   1. Line 219 in align_warp_back_multiple_dlib.py
+   ```
+   mask = mask.astype(np.float64)
+   mask *= 255.0
+   mask = mask.astype(np.uint8)
+   ```
+   2. Upgrading the dependancies:
+      1. Check the log screen for which ones to upgrade (mostly pillow files)
+   3. Check in updates for the ```requirements.txt```
+   4. Try to get the download links for all the things and setting them up (which I had to do)
+   5. Upgrading the front end for users
