@@ -1,47 +1,22 @@
-# https://youtu.be/-XeKG_T6tdc
-"""
-
-Mitochondria U-net (Transfer learning using segmentation models) using small dataset 
-(12 images and masks of 768x1024 each - further divided into 256x256 patches
- 
- !pip install patchify
- !pip install segmentation-models==1.0.1
- 
- 
-Note: 
-Importing segmentation models library may give you generic_utils error on TF2.x
-If you get an error about generic_utils...
-
-Option 1:
-change keras.utils.generic_utils.get_custom_objects().update(custom_objects) 
-to keras.utils.get_custom_objects().update(custom_objects) 
-in .../lib/python3.7/site-packages/efficientnet/__init__.py 
-
-Use thhis code snippet to find out the location of site_packages directory
-under your current environment in anaconda. 
-
-from distutils.sysconfig import get_python_lib
-print(get_python_lib())
-
-
-Option 2 (especially for Google Colab):
-Work with Tensorflow 1.x
-In google colab, add this as your fitst line.
-%tensorflow_version 1.x
-"""
-
+import os
+import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 from patchify import patchify
-import tifffile as tiff
+from matplotlib import pyplot as plt
 
-#All 165 images
-#large_image_stack = tiff.imread('full_dataset/images/mitochondria_train_01.tif')
-#large_mask_stack = tiff.imread('full_dataset/masks/mitochondria_train_masks_01.tif')
+# ====== New Code ======
+# Location of masks and images, resized
+image_dir = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\Training\input_resized"
+mask_dir = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\Training\mask_resized"
 
-#12 images only
-large_image_stack = tiff.imread('small_dataset_for_training/images/12_training_mito_images.tif')
-large_mask_stack = tiff.imread('small_dataset_for_training/masks/12_training_mito_masks.tif')
+# Get a sorted list of all image files in the directory
+image_files = sorted(os.listdir(image_dir))
+mask_files = sorted(os.listdir(mask_dir))
+
+# Read the images into a list
+large_image_stack = np.stack([cv2.imread(os.path.join(image_dir, file)) for file in image_files])
+large_mask_stack = np.stack([cv2.imread(os.path.join(mask_dir, file)) for file in mask_files])
+# ======================
 
 print(large_image_stack.shape)
 
@@ -118,8 +93,6 @@ plt.subplot(122)
 plt.imshow(np.reshape(y_train[image_number], (256, 256)), cmap='gray')
 plt.show()
 
-
-#New generator with rotation and shear where interpolation that comes with rotation and shear are thresholded in masks. 
 #This gives a binary mask rather than a mask with interpolated values. 
 seed=24
 from keras.preprocessing.image import ImageDataGenerator
