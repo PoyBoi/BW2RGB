@@ -5,11 +5,11 @@
    2. [x] Fine tune those masks via photoshop
    3. [x] Use data augmentation to get more pictures from the same dataset
       1. Turn it into a TIFF image if needed (IDTS)
-   4. Run a UNet on it
+   4. [x] Run a UNet on it
       1. [x] Check how well it works on images
-2. BW to RGB conversion
-   1. Denoise the image
-   2. Check the older repo for how colorization was done, apply it here, ezpz
+2. [x] BW to RGB conversion
+   1. [x] Denoise the image
+   2. [x] Check the older repo for how colorization was done, apply it here, ezpz
 3. use GFP GAN like in AYNASSG to upscale faces and background of image
    1. Optional: Make the face upscaling thing yourself
 4. Color correction / restoration of images 
