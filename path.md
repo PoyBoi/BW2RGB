@@ -1,12 +1,12 @@
 # What are deliverables:
 
-1. Remove scratches from images
-   1. Take images from the model and get their masks, see if they are any good and then fine tune them
-   2. Fine tune those masks via photoshop
-   3. Use data augmentation to get more pictures from the same dataset
+1. [x] Remove scratches from images
+   1. [x] Take images from the model and get their masks, see if they are any good and then fine tune them
+   2. [x] Fine tune those masks via photoshop
+   3. [x] Use data augmentation to get more pictures from the same dataset
       1. Turn it into a TIFF image if needed (IDTS)
    4. Run a UNet on it
-      1. Check how well it works on images
+      1. [x] Check how well it works on images
 2. BW to RGB conversion
    1. Denoise the image
    2. Check the older repo for how colorization was done, apply it here, ezpz
