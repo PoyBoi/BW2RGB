@@ -1,5 +1,9 @@
 def colorize(
-    file_loc: str,
+    img_obj = None,
+
+    file_loc: str = None,
+    file_org:str = None,
+
     is_img: bool = True,
     method: int = 2,
     show_graph: bool = True,
@@ -8,6 +12,7 @@ def colorize(
 ):
     # method == 0: ECCV; method == 1: SIGGRAPH (default)
     import os
+    import cv2
     import torch
     import argparse
     import matplotlib.pyplot as plt
@@ -15,30 +20,35 @@ def colorize(
 #   from colorizers import *
 #   import colorizers
 
-    from colorizers import eccv16, siggraph17, load_img, preprocess_img, postprocess_tens
+    from .colorizers import eccv16, siggraph17, load_img, preprocess_img, postprocess_tens
 
     # download Image if it's a link
     # file_loc = ""
-    if "https" in file_loc or ".com" in file_loc:
-        # get current directory, and add / to the end of it
-        cwd = os.popen("pwd").read().split()[0] + r"/"
+    if img_obj is None:
+        if "https" in file_loc or ".com" in file_loc:
+            # get current directory, and add / to the end of it
+            cwd = os.popen("pwd").read().split()[0] + r"/"
 
-        # get list of files
-        ls = os.popen("ls").read().split()
+            # get list of files
+            ls = os.popen("ls").read().split()
 
-        # print(cwd)
-        name_check = file_loc.split("/")[-1]
-        if name_check in ls:
-            print("Image already exists, using locally stored version")
+            # print(cwd)
+            name_check = file_loc.split("/")[-1]
+            if name_check in ls:
+                print("Image already exists, using locally stored version")
+            else:
+                print("Image not found, downloading")
+                os.system("wget -P {} {}".format(cwd, file_loc))
+            file_loc = cwd + name_check
+        # use local image
         else:
-            print("Image not found, downloading")
-            os.system("wget -P {} {}".format(cwd, file_loc))
-        file_loc = cwd + name_check
-    # use local image
-    else:
-        None
+            None
 
-    # print(file_loc)
+        # print(file_loc)
+        file_name = os.path.join("colorizers","outputs",file_loc.split("\\")[-1])
+    else:
+        # print(file_org)
+        file_name = os.path.join("colorizers", "outputs", file_org[-1])
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--img_path', type=str,
@@ -61,7 +71,12 @@ def colorize(
 
     # default size to process images is 256x256
     # grabs L channel in both original ("orig") and resized ("rs") resolutions
-    img = load_img(opt.img_path)
+    if img_obj is None:
+        img = load_img(opt.img_path)
+    else:
+        img = img_obj
+        # print(img.shape)
+    oh, ow, _ = img.shape
     img = img[:, :, :3]
     (tens_l_orig, tens_l_rs) = preprocess_img(img, HW=(256, 256))
     if (opt.use_gpu):
@@ -75,15 +90,25 @@ def colorize(
         tens_l_orig, colorizer_eccv16(tens_l_rs).cpu())
     out_img_siggraph17 = postprocess_tens(
         tens_l_orig, colorizer_siggraph17(tens_l_rs).cpu())
+    
+    out_img_eccv16 = cv2.resize(out_img_eccv16, (ow, oh))
+    out_img_siggraph17 = cv2.resize(out_img_siggraph17, (ow, oh))
+
+    # print(out_img_eccv16, out_img_siggraph17)
 
     # Based on args (2 = all)
+
+    outputs = [out_img_eccv16, out_img_siggraph17]
     if save_image == True:
         if method == 0:
             plt.imsave('%s_eccv16.png' %
                        opt.save_prefix, out_img_eccv16)
         elif method == 1:
+            # print("Here :)")
             plt.imsave('%s_siggraph17.png' %
                        opt.save_prefix, out_img_siggraph17)
+            cv2.imwrite(filename=file_name, img=out_img_siggraph17)
+            print("Done")
         elif method == 2:
             plt.imsave('%s_eccv16.png' % opt.save_prefix, out_img_eccv16)
             plt.imsave('%s_siggraph17.png' %
@@ -128,3 +153,5 @@ def colorize(
             plt.axis('off')
 
         plt.show()
+
+    return outputs
