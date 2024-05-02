@@ -11,6 +11,7 @@ def colorize(
     use_gpu: bool = False
 ):
     # method == 0: ECCV; method == 1: SIGGRAPH (default)
+    
     import os
     import cv2
     import torch
