@@ -99,6 +99,7 @@ def colorize(
     # Based on args (2 = all)
 
     outputs = [out_img_eccv16, out_img_siggraph17]
+    
     if save_image == True:
         if method == 0:
             plt.imsave('%s_eccv16.png' %
