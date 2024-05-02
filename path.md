@@ -10,9 +10,9 @@
 2. [x] BW to RGB conversion
    1. [x] Denoise the image
    2. [x] Check the older repo for how colorization was done, apply it here, ezpz
-   3. [ ] Add denoising
+   3. [x] Add denoising
    4. [ ] Add mask blurring and check the output quality
-   5. [ ] Save the steps saves of the images
+   5. [x] Save the steps saves of the images
 3. use GFP GAN like in AYNASSG to upscale faces and background of image
    1. Optional: Make the face upscaling thing yourself
    2. [ ] Make a CMD call to AYNASSG for this
