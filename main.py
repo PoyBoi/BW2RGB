@@ -23,13 +23,6 @@ mode list:
 
 mode_list = int(input())
 
-img_read = cv2.imread(loc)
-# cv2.imshow('image', img_read)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-
-print("IMG size = ", img_read.shape)
-
 image_path = Path(loc)
 image_name = image_path.name
 file_nam = print(str(image_name))
@@ -41,7 +34,6 @@ final_name = os.path.join(folder_2, image_name)
 other_folder = Path(folder_2)
 print(str(other_folder))
 
-# Check if the image exists in the other folder
 if (other_folder / image_name).exists():
     print(f"{image_name} exists in {other_folder}")
 else:
@@ -56,6 +48,7 @@ if mode_list == 1:
 
     print(final_name)
     img = cv2.imread(final_name)
+    print("IMG size = ", img_read.shape)
     cv2.imshow('Image', img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -63,10 +56,11 @@ if mode_list == 1:
 # Scratch Removal Using SD
 elif mode_list == 2:
     img_read = cv2.imread(loc_gen)
+    print("IMG size = ", img_read.shape)
     cv2.imshow('image', img_read)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    # Just for a dry run
+
     subprocess.run([
         "cd", r"C:\Users\parvs\VSC Codes\Python-root\AynAssg", "&&",
         "python", "main.py", "--b", 
@@ -75,34 +69,29 @@ elif mode_list == 2:
         "--f", loc_gen, 
         "--n", "An image without cracks and scratches with no gaps, white lines, scratches, folds, embelishment, dirty, gaps, bad photo", 
         "--l", "AynAssg\\models\\diffused\\realisticVisionV60B1", 
-        # "-cfg", 7, 
-        # "-steps", 50
+        "-cfg", "7", 
+        "-steps", "50"
     ], shell=True)
 
 # Image and Background Upscaling
 elif mode_list == 3:
     img_read = cv2.imread(loc_gen)
+    print("IMG size = ", img_read.shape)
     cv2.imshow('image', img_read)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    #  python main.py --u 4 -f "C:\Users\parvs\VSC Codes\Python-root\AynAssg\outputs\miscHosted\output_bg_20240406_045718.png"  
     subprocess.run([
         "cd", r"C:\Users\parvs\VSC Codes\Python-root\AynAssg", "&&",
         "python", "main.py", 
         "--u", "3", 
-        # "--p", "clean picture, smooth picture, same color", 
-        # "--k", "{}".format(str(folder_2 / image_name)), 
         "--f", loc_gen, 
-        # "--n", "An image without cracks and scratches with no gaps, white lines, scratches, folds, embelishment, dirty, gaps, bad photo", 
-        # "--l", "AynAssg\\models\\diffused\\realisticVisionV60B1", 
-        # "-cfg", "7", 
-        # "-steps", "50"
 
     ], shell=True)
 
 # Denoising + Colorizing Image
 elif mode_list == 4:
     img_read = cv2.imread(loc)
+    print("IMG size = ", img_read.shape)
     cv2.imshow('image', img_read)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -114,7 +103,6 @@ elif mode_list == 4:
     ret_img = colorize(
         img_obj=den_img[0], 
         file_org=den_img[1],
-        #r"C:\Users\parvs\VSC Codes\Python-root\Bringing-Old-Photos-Back-to-Life\test_images\old_w_scratch\b.png", 
         file_loc= None,
         is_img = True,
         method = 1,
@@ -134,6 +122,7 @@ elif mode_list == 4:
 # Face Restoration
 elif mode_list == 5:
     img_read = cv2.imread(loc_gen)
+    print("IMG size = ", img_read.shape)
     cv2.imshow('image', img_read)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -142,15 +131,6 @@ elif mode_list == 5:
         "cd", r"C:\Users\parvs\VSC Codes\Python-root\AynAssg", "&&",
         "python", "main.py", 
         "--u", "1", 
-        # "--p", "clean picture, smooth picture, same color", 
-        # "--k", "{}".format(str(folder_2 / image_name)), 
         "--f", loc_gen, 
-        # "--n", "An image without cracks and scratches with no gaps, white lines, scratches, folds, embelishment, dirty, gaps, bad photo", 
-        # "--l", "AynAssg\\models\\diffused\\realisticVisionV60B1", 
-        # "-cfg", "7", 
-        # "-steps", "50"
 
     ], shell=True)
-
-# cv2.imwrite("./test.png", (cv2.cvtColor(ret_img[1], cv2.COLOR_BGR2RGB)))
-
