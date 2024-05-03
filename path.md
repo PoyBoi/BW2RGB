@@ -15,13 +15,14 @@
    5. [x] Save the steps saves of the images
 3. use GFP GAN like in AYNASSG to upscale faces and background of image
    1. Optional: Make the face upscaling thing yourself
-   2. [ ] Make a CMD call to AYNASSG for this
+   2. [x] Make a CMD call to AYNASSG for this
 4. Color correction / restoration of images 
 5. Image Upscaling
 6. Finishing it all up:
-   1. Deploy SD and masking from AynAssg for filling in the masked parts of the images
+   1. [x] Deploy SD and masking from AynAssg for filling in the masked parts of the images
    2. Try deploying this on Modal
-   3. Try to make a thing where it can change the BG of the image
+   3. [ ] Try to make a thing where it can change the BG of the image
+7. [ ] Integrate AynAssg into the pipeline and in the docs as well
 
 
 
