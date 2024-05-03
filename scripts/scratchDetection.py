@@ -80,4 +80,4 @@ def detScr(loc:str, gSize:int) -> np.ndarray:
     return mgBw
 
 #__main__
-detScr(r"C:\Users\parvs\Downloads\scratch_removal_automatic_1.jpg", 1)
+# detScr(r"C:\Users\parvs\Downloads\scratch_removal_automatic_1.jpg", 1)
