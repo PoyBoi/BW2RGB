@@ -18,29 +18,37 @@ mode list:
 3 - Image and Background upscaling
 4 - Colorizing image + denoising
 5 - Face Restoration
+
+Note:
+final_name is the other name for the name of the final location where the mask is stored, we get this from:
+    loc:            We scrape the name of the image from this
+    os.path.join:   We use this to compound the name of the file that we got, check for it's existance locally, and then we look in the masks folder for it's exist
+
+IMP:
+Might want to import this to the flask app, but instead just taking the image name, raise flag for "check local"
 '''
 
-mode_list = int(input())
+def localTest(mode:int, final_name:str):
+    # mode_list = int(input())
+    image_path = Path(loc)
+    image_name = image_path.name
+    file_nam = print(str(image_name))
 
-image_path = Path(loc)
-image_name = image_path.name
-file_nam = print(str(image_name))
+    print(folder_2, file_nam)
+    final_name = os.path.join(folder_2, image_name)
 
-print(folder_2, file_nam)
-final_name = os.path.join(folder_2, image_name)
+    # Define the other folder
+    other_folder = Path(folder_2)
+    print(str(other_folder))
 
-# Define the other folder
-other_folder = Path(folder_2)
-print(str(other_folder))
-
-if (other_folder / image_name).exists():
-    print(f"{image_name} exists in {other_folder}")
-else:
-    print(f"{image_name} does not exist in {other_folder}")
+    if (other_folder / image_name).exists():
+        print(f"{image_name} exists in {other_folder}")
+    else:
+        print(f"{image_name} does not exist in {other_folder}")
 
 # Scratch Detection
 # if mode_list == 1:
-def scrDet():
+def scrDet(final_name):
     img_read = cv2.imread(loc)
     cv2.imshow('image', img_read)
     cv2.waitKey(0)
