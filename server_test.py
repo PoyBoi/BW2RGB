@@ -18,7 +18,7 @@ def main_run():
     # block to check for image existance
     file_nam = str(image_name)
 
-    folder_2 = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\mask"
+    folder_2 = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\mask\PSD"
     
     print(folder_2, file_nam)
     final_name = os.path.join(folder_2, image_name)
