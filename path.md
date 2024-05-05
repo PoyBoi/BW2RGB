@@ -23,7 +23,14 @@
    2. Try deploying this on Modal
    3. [ ] Try to make a thing where it can change the BG of the image
 7. [ ] Integrate AynAssg into the pipeline and in the docs as well
-
+8. [ ] Hide the usage of the mask straight up\
+9. [ ] For the flask app:
+   1. [ ] Convert the image from and to bit stream INSIDE the server app (make the bits into an image, and then pass it into the function call)
+      1. [ ] Add the args into the func definitions
+   2. [ ] Use that to pass it into the functions
+   3. [ ] Turn all the elif's into methods
+   4. [ ] See how to call those methods from inside the server app
+   5. [ ] Need to clean up locations
 
 
 # Misc:
