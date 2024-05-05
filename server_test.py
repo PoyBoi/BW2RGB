@@ -1,14 +1,21 @@
 from flask import Flask, request
-from main import scratch_detection, scratch_removal, image_upscaling, denoise_colorize, face_restoration
+from main import localTest, imgClr, imgRes, imgUp, scrDet, scrRem
 from pathlib import Path
 import os
+from PIL import Image
 
 app = Flask(__name__)
 
-@app.route('/process_image', methods=['POST'])
-def process_image():
+@app.route('/main_run', methods=['POST'])
+def main_run():
     # Get the name of the image
-    image_name = None
+    image_name = request.json['image_name']
+    mode = int(request.json['mode'])
+    image = request.json['image']
+
+    # block to convert image's bytes to images
+    
+    # block to check for image existance
     file_nam = str(image_name)
 
     folder_2 = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\mask"
@@ -24,22 +31,18 @@ def process_image():
         print(f"{image_name} exists in {other_folder}")
     else:
         print(f"{image_name} does not exist in {other_folder}")
-    mode = int(request.json['mode'])
-
-    # Get the image path from the request data
-    image_path = request.json['image_path']
 
     # Call the appropriate function based on the mode
     if mode == 1:
-        scratch_detection(image_path, final_name)
+        scrDet(image_path, final_name)
     elif mode == 2:
-        scratch_removal(final_name, loc_gen)
+        scrRem(final_name, loc_gen)
     elif mode == 3:
-        image_upscaling(loc_gen)
+        imgUp(loc_gen)
     elif mode == 4:
-        denoise_colorize(loc)
+        imgClr(loc)
     elif mode == 5:
-        face_restoration(loc_gen)
+        imgRes(loc_gen)
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
