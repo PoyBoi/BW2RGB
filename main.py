@@ -1,5 +1,6 @@
 import os, io, cv2, subprocess
 from pathlib import Path
+from PIL import Image
 import subprocess
 from scripts.colorizeCode import colorize
 from scripts.denoiser import denoise_image
@@ -9,7 +10,7 @@ print("Init location")
 loc = r"..\Bringing-Old-Photos-Back-to-Life\test_images\old_w_scratch\b.png"
 loc = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\input\6045292_orig.png"
 loc_gen = r"C:\Users\parvs\VSC Codes\Python-root\BW2RGB\saved_siggraph17.png"
-folder_2 = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\mask"
+folder_2 = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\mask\PSD"
 
 '''
 mode list:
@@ -49,26 +50,28 @@ def localTest(mode:int, final_name:str):
 # Scratch Detection
 # if mode_list == 1:
 def scrDet(final_name):
-    img_read = cv2.imread(loc)
-    cv2.imshow('image', img_read)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # img_read = cv2.imread(loc)
+    # cv2.imshow('image', img_read)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     print(final_name)
     img = cv2.imread(final_name)
-    print("IMG size = ", img_read.shape)
-    cv2.imshow('Image', img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # print("IMG size = ", img_read.shape)
+    # cv2.imshow('Image', img)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+    return img
 
 # Scratch Removal Using SD
 # elif mode_list == 2:
-def scrRem():
-    img_read = cv2.imread(loc_gen)
-    print("IMG size = ", img_read.shape)
-    cv2.imshow('image', img_read)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+def scrRem(final_name, loc_gen):
+    # img_read = cv2.imread(loc_gen)
+    # print("IMG size = ", img_read.shape)
+    # cv2.imshow('image', img_read)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     subprocess.run([
         "cd", r"C:\Users\parvs\VSC Codes\Python-root\AynAssg", "&&",
@@ -146,3 +149,14 @@ def imgRes():
         "--f", loc_gen, 
 
     ], shell=True)
+
+
+#__main__
+# op = scrDet(r"C:\Users\parvs\VSC Codes\Python-root\BW2RGB\saved_siggraph17.png")
+scrRem("scratch_removal_automatic_1.png", r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\input\scratch_removal_automatic_1.png")
+
+
+
+# im = cv2.imshow("img", op)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
