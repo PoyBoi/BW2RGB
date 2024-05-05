@@ -1,5 +1,4 @@
-import os
-import cv2
+import os, io, cv2, subprocess
 from pathlib import Path
 import subprocess
 from scripts.colorizeCode import colorize
@@ -40,7 +39,8 @@ else:
     print(f"{image_name} does not exist in {other_folder}")
 
 # Scratch Detection
-if mode_list == 1:
+# if mode_list == 1:
+def scrDet():
     img_read = cv2.imread(loc)
     cv2.imshow('image', img_read)
     cv2.waitKey(0)
@@ -54,7 +54,8 @@ if mode_list == 1:
     cv2.destroyAllWindows()
 
 # Scratch Removal Using SD
-elif mode_list == 2:
+# elif mode_list == 2:
+def scrRem():
     img_read = cv2.imread(loc_gen)
     print("IMG size = ", img_read.shape)
     cv2.imshow('image', img_read)
@@ -74,7 +75,8 @@ elif mode_list == 2:
     ], shell=True)
 
 # Image and Background Upscaling
-elif mode_list == 3:
+# elif mode_list == 3:
+def imgUp():
     img_read = cv2.imread(loc_gen)
     print("IMG size = ", img_read.shape)
     cv2.imshow('image', img_read)
@@ -89,7 +91,8 @@ elif mode_list == 3:
     ], shell=True)
 
 # Denoising + Colorizing Image
-elif mode_list == 4:
+# elif mode_list == 4:
+def imgClr():
     img_read = cv2.imread(loc)
     print("IMG size = ", img_read.shape)
     cv2.imshow('image', img_read)
@@ -120,7 +123,8 @@ elif mode_list == 4:
         cv2.destroyAllWindows()
 
 # Face Restoration
-elif mode_list == 5:
+# elif mode_list == 5:
+def imgRes():
     img_read = cv2.imread(loc_gen)
     print("IMG size = ", img_read.shape)
     cv2.imshow('image', img_read)
