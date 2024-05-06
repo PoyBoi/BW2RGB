@@ -129,15 +129,20 @@ def imgUp(loc_gen):
 # Denoising + Colorizing Image
 # elif mode_list == 4:
 def imgClr(loc):
-    # img_read = cv2.imread(loc)
+    print(loc)
+    img_read = cv2.imread(loc)
     # print("IMG size = ", img_read.shape)
+    print("1", img_read)
     # cv2.imshow('image', img_read)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
     den_img = denoise_image(loc, denoise_method="nlm", h=3)
+    print("2", den_img)
+    
+    # print("Denoised")
 
-    # print("Denoising Image size = ", den_img[0].shape)
+    print("Denoising Image size = ", den_img[0].shape)
 
     ret_img = colorize(
         img_obj=den_img[0], 
@@ -146,11 +151,14 @@ def imgClr(loc):
         is_img = True,
         method = 1,
         show_graph = False,
-        save_image = False,
+        save_image = True,
         use_gpu = True
     )
 
-    # print("Colorized Image size = ", ret_img[1].shape)
+    print("3", ret_img[1])
+
+    # print("Colorized")
+    print("Colorized Image size = ", ret_img[1].shape)
 
     for i in range(len(ret_img)):
         img_rgb = cv2.cvtColor(ret_img[i], cv2.COLOR_BGR2RGB)
@@ -162,6 +170,9 @@ def imgClr(loc):
         # output_dir = r"C:\Users\parvs\VSC Codes\Python-root\BW2RGB\images\test"
         # cv2.imwrite(os.path.join(output_dir, f'output_image_{i}.jpg'), img_rgb)
 
+    # print("Appended")
+    # img_rgb = ret_img[1]
+    # print()
     return img_rgb
 
 # Face Restoration
