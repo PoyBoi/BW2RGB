@@ -11,11 +11,12 @@ import numpy as np
 from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
-run_with_ngrok(app)
+# run_with_ngrok(app)
 
 @app.route('/', methods=['POST'])
 def main_run():
     # Get the name of the image
+    print("Invoked inside main block")
 
     # API call block ======================================================================
     image_name = request.json['image_name']
@@ -49,6 +50,8 @@ def main_run():
             print(f"{image_name} does not exist in {other_folder}")
 
     # Call the appropriate function based on the mode =====================================
+    print("Running Mode {}".format(mode))
+
     if mode == 1:
         # Mask file name
         op = scrDet(final_name)
@@ -61,8 +64,11 @@ def main_run():
         op = imgClr(loc)
     elif mode == 5:
         op = imgRes(loc)
-    else:
+    else:   
+        print("Error: Incorrect Method Passed")
         return jsonify({"Error": "Incorrect Method passed"})
+    
+    print("Outside Method {}, now running final leg".format(mode))
 
     # print(op.dtype)
     # return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
