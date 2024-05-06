@@ -6,20 +6,24 @@ from PIL import Image
 from io import BytesIO
 import base64
 import cv2
+import numpy as np
+
+from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
+run_with_ngrok(app)
 
-@app.route('/main_run', methods=['POST'])
+@app.route('/', methods=['POST'])
 def main_run():
     # Get the name of the image
 
     # API call block ======================================================================
     image_name = request.json['image_name']
     mode = int(request.json['mode'])
-    image = request.json['image']
+    image    = request.json['image']
 
     # Block to convert image's bytes to images ============================================
-    loc = r"C:\Users\parvs\VSC Codes\Python-root\BW2RGB\images.temp_1.jpg"
+    loc = r"C:\Users\parvs\VSC Codes\Python-root\BW2RGB\images\temp_2.jpg"
     image_bytes = base64.b64decode(image)
     image = Image.open(BytesIO(image_bytes))
     # image.show()
@@ -63,8 +67,13 @@ def main_run():
     # print(op.dtype)
     # return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
+    # Making sure it's uINT8 ==============================================================
+    op = op.astype(np.uint8)
+    # print(op)
+
     # Block that turns BGR to RGB =========================================================
     img_rgb = cv2.cvtColor(op, cv2.COLOR_BGR2RGB)
+    # print(img_rgb.shape)
     img_pil = Image.fromarray(img_rgb)
     # img_pil.show()
 
@@ -72,7 +81,7 @@ def main_run():
     byte_arr = BytesIO()
     img_pil.save(byte_arr, format='JPEG')
     img_byte_arr = byte_arr.getvalue()
-    print(img_byte_arr)
+    # print(img_byte_arr)
 
     print("=======================================\nAlmost Done\n=======================================\n")
 
@@ -80,4 +89,4 @@ def main_run():
     return jsonify({"image": img_str})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
