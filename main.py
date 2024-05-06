@@ -203,8 +203,20 @@ def imgRes(loc_gen):
 # op.show()
 # print(op)
 
+# try:
+#     print("Type:", op.type())
+# except:
+#     None
+
+# print("DType:", op.dtype)
+# print("Printing it:\n", op)
 
 # print("BREAK")
 # im = cv2.imshow("img", op)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
+
+# img_rgb = cv2.cvtColor(op, cv2.COLOR_BGR2RGB)
+
+# img_pil = Image.fromarray(img_rgb)
+# img_pil.show()
