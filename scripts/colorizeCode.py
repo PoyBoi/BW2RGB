@@ -98,6 +98,8 @@ def colorize(
     # print(out_img_eccv16, out_img_siggraph17)
 
     # Based on args (2 = all)
+    out_img_eccv16 = (out_img_eccv16 * 255).astype('uint8')
+    out_img_siggraph17 = (out_img_siggraph17 * 255).astype('uint8')
 
     outputs = [out_img_eccv16, out_img_siggraph17]
     
