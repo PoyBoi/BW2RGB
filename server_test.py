@@ -33,7 +33,7 @@ def main_run():
         folder_2 = r"C:\Users\parvs\Downloads\Test\Done\stage_1_restore_output\masks\mask\PSD"
         
         print(folder_2, file_nam)
-        final_name = os.path.join(folder_2, image_name)
+        final_name = os.path.join(folder_2, file_nam)
 
         # Define the other folder
         other_folder = Path(folder_2)
@@ -44,11 +44,12 @@ def main_run():
         else:
             print(f"{image_name} does not exist in {other_folder}")
 
-    # Call the appropriate function based on the mode
+    # Call the appropriate function based on the mode =====================================
     if mode == 1:
+        # Mask file name
         op = scrDet(final_name)
     elif mode == 2:
-        # Check for mask location and then add it to #1, #2 -> location of the file
+        # Mask loc, Img loc
         op = scrRem(final_name, loc)
     elif mode == 3:
         op = imgUp(loc)
@@ -71,8 +72,12 @@ def main_run():
     byte_arr = BytesIO()
     img_pil.save(byte_arr, format='JPEG')
     img_byte_arr = byte_arr.getvalue()
-    # print(img_byte_arr)
-    return jsonify({"image": img_byte_arr})
+    print(img_byte_arr)
+
+    print("=======================================\nAlmost Done\n=======================================\n")
+
+    img_str = base64.b64encode(img_byte_arr).decode()
+    return jsonify({"image": img_str})
 
 if __name__ == '__main__':
     app.run(debug=True)
